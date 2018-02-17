@@ -77,6 +77,6 @@ app.delete('/trades/delete/:id',function(req,res){
   });
 });
 
-app.listen(3000, function(){
-  console.log('Server started on Port 3000...');
+app.listen(process.env.PORT, function(){
+  console.log('Server started on Port ...'+ process.env.PORT);
 })

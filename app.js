@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator = require('express-validator');
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://TyroneHunt:Coding51@ds113455.mlab.com:13455/tradingapp', ['trades']);
+var db = mongojs(process.env.DATABASE_URL, ['trades']);
 var ObjectID = mongojs.ObjectID;
 var app = express();
 

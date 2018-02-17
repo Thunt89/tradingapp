@@ -1,6 +1,6 @@
 <% include partials/header%>
 
-<h1> Add Customer</h1>
+<h1> Add Trades</h1>
 
 <% if(errors){ %>
   <ul>
@@ -11,24 +11,24 @@
 <% } %>
 
 
-<form method="POST" action="/users/add">
-  <label>First Name </label><br>
-  <input type="text" name="first_name">
+<form method="POST" action="/trades/add">
+  <label>BTC Amount </label><br>
+  <input type="number" name="btc">
   <br>
-  <label>Last Name </label><br>
-  <input type="text" name="last_name">
+  <label>USD Amount </label><br>
+  <input type="number" name="usd">
   <br>
-  <label>Email </label><br>
-  <input type="text" name="email">
+  <label>Date </label><br>
+  <input type="date" name="trade_date">
   <br><br>
   <input type="submit" value="Submit">
 </form>
 
 <h1><%= title %></h1>
 <ul>
-<% users.forEach(function(user){ %>
-    <li> <%= user.first_name %> <%= user.last_name %> -
-        <a href="#" class="deleteUser" data-id="<%= user._id %>"> Delete</a>
+<% trades.forEach(function(trade){ %>
+    <li> <%= trade.trade_date%>- Buy <%= trade.btc %> BTC for $<%= trade.usd %> -
+        <a href="#" class="deleteTrade" data-id="<%= trade._id %>"> Delete</a>
     </li>
 <% }) %>
 </ul>

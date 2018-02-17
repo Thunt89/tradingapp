@@ -1,14 +1,14 @@
 $(document).ready(function(){
-  $('.deleteUser').on('click',deleteUser);
+  $('.deleteTrade').on('click',deleteTrade);
 });
 
-function deleteUser(){
+function deleteTrade(){
   var confirmation = confirm('Are you sure?');
 
     if (confirmation){
         $.ajax({
           type:'DELETE',
-          url:'/users/delete/'+$(this).data('id')
+          url:'/trades/delete/'+$(this).data('id')
         }).done(function(response){
           window.location.replace('/');
         });

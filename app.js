@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var expressValidator = require('express-validator');
 var mongojs = require('mongojs');
-var db = mongojs('customerapp', ['users']);
+var db = mongojs('mongodb://TyroneHunt:Coding51@ds113455.mlab.com:13455/tradingapp', ['trades']);
 var ObjectID = mongojs.ObjectID;
 var app = express();
 
@@ -28,37 +28,38 @@ app.use(function(req, res, next){
 app.use(expressValidator());
 
 app.get('/', function(req, res){
-db.users.find(function (err, docs) {
+db.trades.find(function (err, docs) {
   console.log(docs);
   res.render('index', {
-      title: 'Customers',
-      users: docs
+      title: 'Trades',
+      trades: docs
     });
     })
 });
 
-app.post('/users/add', function(req, res){
 
-req.checkBody('first_name','First Name is required').notEmpty();
-req.checkBody('last_name','Last Name is required').notEmpty();
-req.checkBody('email','Email is required').notEmpty();
+app.post('/trades/add', function(req, res){
+
+  req.checkBody('btc','BTC amount is required').notEmpty();
+  req.checkBody('usd','USD amount is required').notEmpty();
+  req.checkBody('trade_date','Trade date is required').notEmpty();
 
 var errors = req.validationErrors();
 
 if(errors){
     res.render('index', {
-      title: 'Customers',
-      users: users,
+      title: 'Trades',
+      trades: trades,
       errors: errors
     });
 } else {
-  var newUser = {
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email
+  var newTrade = {
+      btc: req.body.btc,
+      usd: req.body.usd,
+      trade_date: req.body.trade_date
   }
 
-  db.users.insert(newUser, function(err, result){
+  db.trades.insert(newTrade, function(err, result){
     if(err){
       console.log(err);
     }
@@ -67,8 +68,8 @@ if(errors){
 }
 });
 
-app.delete('/users/delete/:id',function(req,res){
-  db.users.remove({_id: ObjectID(req.params.id)}, function(err, result){
+app.delete('/trades/delete/:id',function(req,res){
+  db.trades.remove({_id: ObjectID(req.params.id)}, function(err, result){
     if(err){
       console.log(err);
     }
